@@ -1,4 +1,18 @@
 ﻿<Properties StartupConfiguration="{7531266C-44FF-4BE0-BBFC-CBC8C196E540}|Default">
+  <MonoDevelop.Ide.Workbench>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="fplanner" expanded="True" selected="True" />
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.ItemProperties.fplanner FirstBuild="True" />
+  <MonoDevelop.Ide.ItemProperties.fplanner FirstBuild="True" PreferredExecutionTarget="/Applications/Google Chrome.app" />
 </Properties>
