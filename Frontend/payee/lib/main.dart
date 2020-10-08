@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fplanner/widgets/login.dart';
+import 'package:fplanner/widgets/mainOptions.dart';
 import 'package:fplanner/widgets/profile.dart';     
 import 'package:flutter_localizations/flutter_localizations.dart';
 import "package:i18n_extension/i18n_widget.dart";
@@ -40,21 +41,23 @@ class _MyAppState extends State<MyApp> {
       home: Scaffold(
         appBar: AppBar(
           title: Text('Planejador Financeiro'.i18n),
+          actions: [isLoggedIn ? Profile(logoutAction):MainOptions(),],
+          backgroundColor: Colors.green[300],
         ),
         body: 
         Center(
           child: I18n(
             initialLocale: Locale("pt", "BR"),
-            
             child: isBusy
               ? CircularProgressIndicator()
-              : isLoggedIn
-                  ? Profile(logoutAction, name, picture)
+              : isLoggedIn? MainOptions()
                   : Login(loginAction, errorMessage,context),
 
             )
-          )
+          ),
+        backgroundColor: Colors.green[50],
         ),
+
     );
   }
 

@@ -14,7 +14,16 @@ class Login extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
+        Image.asset(
+          'images/lake.jpeg',
+          fit: BoxFit.none,
+        ),
         RaisedButton(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(0.0),
+          ),
+          color: Colors.green[300],
+          textColor: Colors.white,
           onPressed: () {
             loginAction();
           },
