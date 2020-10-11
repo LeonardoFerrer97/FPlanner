@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fplanner/widgets/login.dart';
-import 'package:fplanner/widgets/mainOptions.dart';
-import 'package:fplanner/widgets/profile.dart';     
+import 'package:payee/widgets/login.dart';
+import 'package:payee/widgets/mainOptions.dart';
+import 'package:payee/widgets/profile.dart';     
 import 'package:flutter_localizations/flutter_localizations.dart';
 import "package:i18n_extension/i18n_widget.dart";
 import 'dart:convert';
@@ -37,7 +37,7 @@ class _MyAppState extends State<MyApp> {
           const Locale('en', "US"), 
           const Locale('pt', "BR"), 
         ],
-      title: 'FPlanner',
+      title: 'Payee',
       home: Scaffold(
         appBar: AppBar(
           title: Text('Planejador Financeiro'.i18n),
@@ -173,5 +173,5 @@ void logoutAction() async {
 const AUTH0_DOMAIN = 'dev-d1olx9ru.auth0.com';
 const AUTH0_CLIENT_ID = 'dI1oVzxsxepFHv1H5RC7f2ylF5ZX3N4B';
 
-const AUTH0_REDIRECT_URI = 'com.example.fplanner://login-callback';
+const AUTH0_REDIRECT_URI = 'com.example.payee://login-callback';
 const AUTH0_ISSUER = 'https://$AUTH0_DOMAIN';
