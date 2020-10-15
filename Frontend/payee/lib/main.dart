@@ -1,14 +1,19 @@
+
 import 'package:flutter/material.dart';
 import 'package:payee/widgets/login.dart';
 import 'package:payee/widgets/mainOptions.dart';
-import 'package:payee/widgets/profile.dart';     
+import 'package:payee/widgets/logoutAction.dart';     
 import 'package:flutter_localizations/flutter_localizations.dart';
 import "package:i18n_extension/i18n_widget.dart";
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter_appauth/flutter_appauth.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:sqlentity/database/database-config.dart';
 
+import 'Entities/category.entity.dart';
+import 'Entities/register.entity.dart';
+import 'Entities/user.entity.dart';
 import 'main.i18n.dart';
 
 final FlutterAppAuth appAuth = FlutterAppAuth();
@@ -41,8 +46,8 @@ class _MyAppState extends State<MyApp> {
       home: Scaffold(
         appBar: AppBar(
           title: Text('Planejador Financeiro'.i18n),
-          actions: [isLoggedIn ? Profile(logoutAction):MainOptions(),],
-          backgroundColor: Colors.green[300],
+          actions: [isLoggedIn ? LogoutAction(logoutAction):Text(""),],
+          backgroundColor: const Color(0xff724E91),
         ),
         body: 
         Center(
@@ -55,7 +60,7 @@ class _MyAppState extends State<MyApp> {
 
             )
           ),
-        backgroundColor: Colors.green[50],
+        backgroundColor: const Color(0xffdef6ca),
         ),
 
     );
@@ -131,6 +136,13 @@ void logoutAction() async {
   @override void initState() {
     initAction();
     super.initState();
+    initDatabase();
+  }
+  void initDatabase() {
+    DataBaseConfig dataBaseConfig = DataBaseConfig();
+    dataBaseConfig.database_name = "Teste";
+    dataBaseConfig.database_version = 1;
+    dataBaseConfig.entitys = [new RegisterEntity(),new UserEntity(),new CategoryEntity()];
   }
 
   void initAction() async {

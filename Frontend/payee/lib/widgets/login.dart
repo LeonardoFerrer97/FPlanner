@@ -19,14 +19,14 @@ class Login extends StatelessWidget {
           fit: BoxFit.none,
         ),
 
-        SizedBox(height: 200),
+        SizedBox(height: 20),
         RaisedButton(
 
           padding: const EdgeInsets.only(top: 10.0,left: 30.0,right:30.0,bottom:10.0),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8.0),
           ),
-          color: Colors.green[300],
+          color: const Color(0xff724E91),
           textColor: Colors.white,
           onPressed: () {
             loginAction();

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'mainOptions.i18n.dart';
-class MainOptions extends StatelessWidget {
+
+import 'registers.i18n.dart';
+class Registers extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -10,15 +11,14 @@ class MainOptions extends StatelessWidget {
           RaisedButton(
           onPressed: () {
           },
-          child: Text('Fazer um registro'.i18n),
+          child: Text('Cadastrar um tipo de registro'.i18n),
         ),
          RaisedButton(
           onPressed: () {
           },
-          child: Text('Consultar'.i18n),
+          child: Text('Fazer um registro'.i18n),
         ),
       ]
     );
-
   }
 }
