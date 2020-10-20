@@ -1,4 +1,5 @@
 
+import 'package:payee/Entities/user.entity.dart';
 import 'package:sqlentity/base-entity/entity.dart';
 
 import 'category.entity.dart';
@@ -6,28 +7,19 @@ class RegisterEntity extends Entity {
   int _id;
   String _type;
   CategoryEntity _category;
+  UserEntity _userId;
   String _desc;
   String _value;
 
-  RegisterEntity({var id: 0,var type:"",CategoryEntity category, var desc: "", var value: ""}) : super('Register') {
+  RegisterEntity({var id: 0,var type:"",CategoryEntity category, UserEntity userId,var desc: "", var value: ""}) : super('Register') {
     this.id = id;
     this.desc = desc;
     this.category = category;
+    this.userId = userId;
     this.value = value;
     this.type = type;
   }
 
-  @override
-  void configColumn() {
-    //O id deve ser sempre o primeiro caso queira usar as operaçoes padroes do DAO
-    createColumn("ID", "INTEGER PRIMARY KEY AUTOINCREMENT", 1);
-
-    //nova coluna
-    createColumn("DESC", "TEXT", 1);
-    createColumn("CATEGORY", "FOREIGN KEY(category_id) REFERENCES CATEGORY(id)", 1);
-    createColumn("VALUE", "TEXT", 1);
-    createColumn("TYPE", "TEXT", 1);
-  }
 
   @override
   Entity map(Map<String, dynamic> map) {
@@ -35,6 +27,7 @@ class RegisterEntity extends Entity {
       id: map['ID'],
       value: map['VALUE'],
       category: map['CATEGORY'],
+      userId: map['USERID'],
       desc: map['DESC'],
       type: map['TYPE'],
     );
@@ -52,6 +45,13 @@ class RegisterEntity extends Entity {
   set category(CategoryEntity value) {
     _category = value;
     updateValeu("CATEGORY", value: category);
+  }
+
+  UserEntity get userId => _userId;
+
+  set userId(UserEntity value) {
+    _userId = value;
+    updateValeu("USERID", value: userId);
   }
   String get value => _value;
 
