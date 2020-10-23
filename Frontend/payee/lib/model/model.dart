@@ -1,9 +1,11 @@
 
 import 'package:sqfentity_gen/sqfentity_gen.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
 part 'model.g.dart';
 
 // Define the 'tableCategory' constant as SqfEntityTable for the category table.
-const tableCategory = SqfEntityTable(
+const SqfEntityTable tableCategory = SqfEntityTable(
   tableName: 'category',
   primaryKeyName: 'id',
   primaryKeyType: PrimaryKeyType.integer_auto_incremental,
@@ -14,7 +16,7 @@ const tableCategory = SqfEntityTable(
   ]
 );
 // Define the 'tableCategory' constant as SqfEntityTable for the category table.
-const tableUser = SqfEntityTable(
+const SqfEntityTable tableUser = SqfEntityTable(
   tableName: 'user',
   primaryKeyName: 'id',
   primaryKeyType: PrimaryKeyType.integer_auto_incremental,
@@ -25,7 +27,7 @@ const tableUser = SqfEntityTable(
   ]
 );
 // Define the 'tableProduct' constant as SqfEntityTable for the product table.
-const tableRegister = SqfEntityTable(
+const SqfEntityTable tableRegister = SqfEntityTable(
   tableName: 'register',
   primaryKeyName: 'id',
   primaryKeyType: PrimaryKeyType.integer_auto_incremental,

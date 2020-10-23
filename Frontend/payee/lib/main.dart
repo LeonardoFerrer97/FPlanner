@@ -9,15 +9,10 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter_appauth/flutter_appauth.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:sqlentity/database/database-config.dart';
-import 'package:sqlentity/repository/dao-repository/dao-repository.dart';
-import 'package:sqlentity/repository/dao-repository/i-dao-repository.dart';
 
-import 'Entities/category.entity.dart';
-import 'Entities/register.entity.dart';
-import 'Entities/user.entity.dart';
 import 'main.i18n.dart';
-
+import 'model/model.dart';
+ 
 final FlutterAppAuth appAuth = FlutterAppAuth();
 final FlutterSecureStorage secureStorage = const FlutterSecureStorage();
 void main() => runApp(MyApp());
@@ -32,7 +27,6 @@ class _MyAppState extends State<MyApp> {
   String errorMessage;
   String name;
   String picture;
-  IDAORepository<UserEntity> _idao;
 @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -93,11 +87,10 @@ Future<void> loginAction() async {
       await secureStorage.write(
           key: 'refresh_token', value: result.refreshToken);
       var email =  idToken['email'];
-      var userlist = await _idao.select();
+      var userlist = await User().select().toList();
       var contain = userlist.where((element) => element.email == email);
       if (contain.isEmpty){
-        UserEntity user = new UserEntity(email:email);
-        _idao.insert(user);
+        await new User(email:email).save();
       }
       setState(() {
         isBusy = false;
@@ -146,13 +139,6 @@ void logoutAction() async {
   @override void initState() {
     initAction();
     super.initState();
-    _idao = new DAORepository(new UserEntity());
-  }
-  void initDatabase() {
-    DataBaseConfig dataBaseConfig = DataBaseConfig();
-    dataBaseConfig.database_name = "Payee";
-    dataBaseConfig.database_version = 1;
-    dataBaseConfig.entitys = [new RegisterEntity(),new UserEntity(),new CategoryEntity()];
   }
 
   void initAction() async {
