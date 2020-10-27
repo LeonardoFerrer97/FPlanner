@@ -9,12 +9,12 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter_appauth/flutter_appauth.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'main.i18n.dart';
-import 'model/model.dart';
  
 final FlutterAppAuth appAuth = FlutterAppAuth();
 final FlutterSecureStorage secureStorage = const FlutterSecureStorage();
+FirebaseFirestore firestore = FirebaseFirestore.instance;
 void main() => runApp(MyApp());
 class MyApp extends StatefulWidget {
   @override
@@ -87,11 +87,25 @@ Future<void> loginAction() async {
       await secureStorage.write(
           key: 'refresh_token', value: result.refreshToken);
       var email =  idToken['email'];
-      var userlist = await User().select().toList();
-      var contain = userlist.where((element) => element.email == email);
-      if (contain.isEmpty){
-        await new User(email:email).save();
-      }
+      var userAlreadyIn= false;
+      FirebaseFirestore.instance
+          .collection('users')
+          .get()
+          .then((QuerySnapshot querySnapshot) => {
+            querySnapshot.docs.forEach((doc) {
+              if(doc["Email"].toString() == email){
+                userAlreadyIn = true;
+              }
+            })
+          });
+      if(userAlreadyIn){
+        FirebaseFirestore.instance.collection('users')
+          .add({
+            'email': email,
+          })
+          .then((value) => print("User Added"))
+          .catchError((error) => print("Failed to add user: $error"));;
+      } 
       setState(() {
         isBusy = false;
         isLoggedIn = true;
