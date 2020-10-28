@@ -10,6 +10,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_appauth/flutter_appauth.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'main.i18n.dart';
  
 final FlutterAppAuth appAuth = FlutterAppAuth();
@@ -86,8 +87,10 @@ Future<void> loginAction() async {
       print(profile);
       await secureStorage.write(
           key: 'refresh_token', value: result.refreshToken);
+      print(idToken);
       var email =  idToken['email'];
       var userAlreadyIn= false;
+      Firebase.initializeApp();
       FirebaseFirestore.instance
           .collection('users')
           .get()
