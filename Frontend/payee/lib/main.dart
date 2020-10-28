@@ -15,7 +15,7 @@ import 'main.i18n.dart';
  
 final FlutterAppAuth appAuth = FlutterAppAuth();
 final FlutterSecureStorage secureStorage = const FlutterSecureStorage();
-FirebaseFirestore firestore = FirebaseFirestore.instance;
+final databaseReference = FirebaseFirestore.instance;
 void main() => runApp(MyApp());
 class MyApp extends StatefulWidget {
   @override
@@ -84,35 +84,33 @@ Future<void> loginAction() async {
 
       final idToken = parseIdToken(result.idToken);
       final profile = await getUserDetails(result.accessToken);
-      print(profile);
       await secureStorage.write(
           key: 'refresh_token', value: result.refreshToken);
-      print(idToken);
-      var email =  idToken['email'];
+      var nickname =  idToken['nickname'];
       var userAlreadyIn= false;
       Firebase.initializeApp();
-      FirebaseFirestore.instance
-          .collection('users')
+      databaseReference
+          .collection('Users')
           .get()
           .then((QuerySnapshot querySnapshot) => {
             querySnapshot.docs.forEach((doc) {
-              if(doc["Email"].toString() == email){
+              if(doc["Nickname"].toString() == nickname){
                 userAlreadyIn = true;
               }
-            })
+            }),
           });
-      if(userAlreadyIn){
-        FirebaseFirestore.instance.collection('users')
-          .add({
-            'email': email,
-          })
-          .then((value) => print("User Added"))
-          .catchError((error) => print("Failed to add user: $error"));;
-      } 
+          if(!userAlreadyIn){
+            await databaseReference.collection('Users')
+              .add({
+                'Nickname': nickname,
+              })
+            .then((value) => print("user added"))
+            .catchError((error) => print("Failed to add user: $error"));
+          }
       setState(() {
         isBusy = false;
         isLoggedIn = true;
-        email = email;
+        nickname = nickname;
         name = idToken['name'];
         picture = profile['picture'];
       });
